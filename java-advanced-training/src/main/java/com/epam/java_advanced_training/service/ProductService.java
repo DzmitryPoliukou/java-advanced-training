@@ -23,7 +23,7 @@ public class ProductService {
 
   public Product getProductById(Long id) {
     return productRepository.findById(id)
-        .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
+        .orElseThrow(() -> new ProductNotFoundException(id.toString()));
   }
 
   public Product updateProduct(Long id, Product newProductData) {
@@ -33,7 +33,7 @@ public class ProductService {
           existingProduct.setPrice(newProductData.getPrice());
           return productRepository.save(existingProduct);
         })
-        .orElseThrow(() -> new ProductNotFoundException("Product with ID " + id + " not found"));
+        .orElseThrow(() -> new ProductNotFoundException(id.toString()));
 
   }
 
@@ -41,7 +41,7 @@ public class ProductService {
     if (productRepository.existsById(id)) {
       productRepository.deleteById(id);
     } else {
-      throw new ProductNotFoundException("Product not found with id: " + id);
+      throw new ProductNotFoundException(id.toString());
     }
   }
 }
