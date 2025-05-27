@@ -34,6 +34,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/").permitAll()
             .requestMatchers("/secured").hasRole("ADMIN")
+            .requestMatchers("/actuator/**").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class) // Добавляем JwtRequestFilter перед обработкой UsernamePasswordAuthenticationFilter
         .formLogin(form -> form
